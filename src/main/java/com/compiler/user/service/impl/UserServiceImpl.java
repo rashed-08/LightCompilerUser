@@ -3,6 +3,7 @@ package com.compiler.user.service.impl;
 import com.compiler.user.model.User;
 import com.compiler.user.repository.impl.UserRepositoryImpl;
 import com.compiler.user.service.UserService;
+import com.compiler.user.validator.impl.UserValidatorImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +13,18 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
+    private UserValidatorImpl userValidator;
+
+    @Autowired
     private UserRepositoryImpl userRepository;
 
     @Override
     public boolean createUser(User user) {
-        userRepository.createUser(user);
-        return true;
+        if (userValidator.userCreateValidator(user)) {
+            userRepository.createUser(user);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -35,8 +42,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateUser(int id) {
         User user = getUser(id);
-        userRepository.updateUser(user);
-        return true;
+        if (user != null) {
+            userRepository.updateUser(user);
+            return true;
+        }
+        return false;
     }
 
     @Override

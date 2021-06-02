@@ -1,19 +1,34 @@
 package com.compiler.user.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
     @Column(name = "first_name")
+    @NotBlank(message = "Firstname cant be null")
+    @Size(min = 3, max = 20, message = "Please provide name between 3 and 20 characters")
+    @Pattern(regexp = "(?i)(^[a-z])((?![ ._'-]$)[a-z ._'-]){2,24}$")
     private String firstName;
+
     @Column(name = "last_name")
+    @NotBlank(message = "Lastname cant be null")
+    @Size(min = 3, max = 20, message = "Please provide name between 3 and 20 characters")
+    @Pattern(regexp = "(?i)(^[a-z])((?![ ._'-]$)[a-z ._'-]){2,24}$")
     private String lastName;
+
+    @NotNull
+    @Pattern(regexp = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$")
     private String email;
+
+    @NotBlank
+//    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "")
     private String password;
     private String country;
 

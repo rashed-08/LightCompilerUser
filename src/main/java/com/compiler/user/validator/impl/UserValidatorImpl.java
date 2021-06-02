@@ -6,20 +6,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
+
+
 @Service
-public class UserValidatorImpl implements UserValidator, Validator {
+public class UserValidatorImpl implements UserValidator {
     @Override
     public boolean userCreateValidator(User user) {
         return false;
-    }
-
-    @Override
-    public boolean supports(Class<?> aClass) {
-        return false;
-    }
-
-    @Override
-    public void validate(Object o, Errors errors) {
-
     }
 }

@@ -5,19 +5,21 @@ import com.compiler.user.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/admin")
 public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
 
     @PostMapping
-    public ResponseEntity<HttpStatus> createUser(@RequestBody final User user) {
+    public ResponseEntity<HttpStatus> createUser(@Valid @RequestBody final User user) {
         boolean userCreateStatus = userService.createUser(user);
         if (userCreateStatus) {
             return ResponseEntity.ok(HttpStatus.CREATED);
