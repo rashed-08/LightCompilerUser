@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public class UserRepositoryImpl {
 
+    @Autowired
     private UserRepository userRepository;
 
     public boolean createUser(User user) {
