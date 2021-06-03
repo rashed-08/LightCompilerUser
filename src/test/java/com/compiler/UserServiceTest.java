@@ -25,7 +25,7 @@ public class UserServiceTest {
     @Test
     @DisplayName("Save Employee")
     public void createUser() {
-        User user = new User(1, "first", "last", "rashed@bitmascot", "rashed","BD");
+        User user = new User(1, "first", "last", "rashed@bitmascot", "rashed", "rashed","BD");
         userService.createUser(user);
         verify(userRepository, times(1)).createUser(user);
     }
