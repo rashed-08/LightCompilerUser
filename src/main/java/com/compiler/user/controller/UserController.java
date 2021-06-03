@@ -40,7 +40,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/user/{id}")
+    @PutMapping("/user/{id}")
     public ResponseEntity<Boolean> updateUser(@RequestPart int id) {
         boolean updateUserStatus = userService.updateUser(id);
         if (updateUserStatus) {

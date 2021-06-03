@@ -23,25 +23,36 @@ public class User {
     @Pattern(regexp = "(?i)(^[a-z])((?![ ._'-]$)[a-z ._'-]){2,24}$")
     private String lastName;
 
-    @NotNull
-    @Pattern(regexp = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$")
+    @NotBlank
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
     private String email;
 
     @NotBlank
-//    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "")
+    private String username;
+
+    @NotBlank
     private String password;
     private String country;
 
     public User() {
     }
 
-    public User(Integer id, String firstName, String lastName, String email, String password, String country) {
+    public User(Integer id, String firstName, String lastName, String email, String username, String password, String country) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.username = username;
         this.password = password;
         this.country = country;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
