@@ -14,6 +14,8 @@ import javax.validation.ValidatorFactory;
 public class UserValidatorImpl implements UserValidator {
     @Override
     public boolean userCreateValidator(User user) {
+        String firstName = user.getFirstName();
+        String lastName = user.getLastName();
         return false;
     }
 }

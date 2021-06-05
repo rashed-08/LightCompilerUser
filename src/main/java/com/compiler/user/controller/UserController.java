@@ -34,19 +34,29 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@RequestPart int id) {
-        User user = userService.getUser(id);
+    @GetMapping("/{username}")
+    public ResponseEntity<User> getUser(@PathVariable String username) {
+        User user = userService.getUser(username);
         return ResponseEntity.ok(user);
     }
 
-    @PutMapping("/user/{id}")
-    public ResponseEntity<Boolean> updateUser(@RequestPart int id) {
-        boolean updateUserStatus = userService.updateUser(id);
+    @PutMapping("/user/{username}")
+    public ResponseEntity<HttpStatus> updateUser(@PathVariable String username) {
+        boolean updateUserStatus = userService.updateUser(username);
         if (updateUserStatus) {
-            return ResponseEntity.ok(true);
+            return ResponseEntity.ok(HttpStatus.CREATED);
         } else {
-            return ResponseEntity.ok(false);
+            return ResponseEntity.ok(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/user/delete/{username}")
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable String username) {
+        boolean deleteUserStatus = userService.deleteUser(username);
+        if (deleteUserStatus) {
+            return ResponseEntity.ok(HttpStatus.CREATED);
+        } else {
+            return ResponseEntity.ok(HttpStatus.BAD_REQUEST);
         }
     }
 }

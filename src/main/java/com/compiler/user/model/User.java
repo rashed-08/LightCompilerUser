@@ -1,5 +1,7 @@
 package com.compiler.user.model;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -24,15 +26,18 @@ public class User {
     private String lastName;
 
     @NotBlank
-    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "Please provide valid email")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Please provide username")
+    @Column(unique = true)
     private String username;
 
     @NotBlank
     private String password;
     private String country;
+
+    private boolean isActive = true;
 
     public User() {
     }
@@ -95,14 +100,12 @@ public class User {
         this.country = country;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", country='" + country + '\'' +
-                '}';
+    public boolean isActive() {
+        return isActive;
     }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
 }

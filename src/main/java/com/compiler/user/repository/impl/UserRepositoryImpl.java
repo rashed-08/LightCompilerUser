@@ -18,8 +18,8 @@ public class UserRepositoryImpl {
         return true;
     }
 
-    public User getUser(int id) {
-        User user = (User) userRepository.getById(id);
+    public User getUser(String username) {
+        User user = userRepository.findUserByUsername(username);
         return user;
     }
 
@@ -33,8 +33,4 @@ public class UserRepositoryImpl {
         return true;
     }
 
-    public boolean deleteUser(int id) {
-        userRepository.deleteById(id);
-        return true;
-    }
 }

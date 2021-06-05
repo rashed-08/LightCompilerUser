@@ -13,35 +13,35 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserValidatorImpl userValidator;
-
-    @Autowired
     private UserRepositoryImpl userRepository;
 
     @Override
     public boolean createUser(User user) {
-        if (userValidator.userCreateValidator(user)) {
-            userRepository.createUser(user);
+        if (userRepository.createUser(user)) {
             return true;
         }
         return false;
     }
 
     @Override
-    public User getUser(int id) {
-        User user = userRepository.getUser(id);
-        return user;
+    public User getUser(String username) {
+        User user = userRepository.getUser(username);
+        if (user != null) {
+            return user;
+        }
+        return null;
     }
 
     @Override
     public List<User> getAllUser() {
         List<User> allUser = userRepository.getAllUser();
+        System.out.println(allUser);
         return allUser;
     }
 
     @Override
-    public boolean updateUser(int id) {
-        User user = getUser(id);
+    public boolean updateUser(String username) {
+        User user = getUser(username);
         if (user != null) {
             userRepository.updateUser(user);
             return true;
@@ -50,8 +50,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteUser(int id) {
-        userRepository.deleteUser(id);
-        return true;
+    public boolean deleteUser(String username) {
+        User user = getUser(username);
+        System.out.println(user.toString());
+        boolean isUserActive = user.isActive();
+        if (isUserActive) {
+            user.setActive(false);
+            userRepository.updateUser(user);
+            return true;
+        }
+        return false;
     }
 }
